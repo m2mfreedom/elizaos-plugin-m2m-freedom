@@ -20,6 +20,19 @@ export const TOOLS = [
       '5-Satoshi ($0.005 USDC) L402/x402 Icebreaker Handshake & Live Bitcoin Price Oracle (100/100 SLA). Returns live BTC/USD spot rate, Satoshi-to-USD conversion, and an HMAC-SHA256 cryptographic settlement proof. Supports 1 Free Trial call or free dryRun=true pre-check.'
   },
   {
+    name: 'freedom_llm_inference',
+    actionName: 'FREEDOM_LLM_INFERENCE',
+    path: '/api/v1/router/tools/llm',
+    method: 'POST',
+    priceSats: 10,
+    priceUsd: 0.0094,
+    freeTrialEligible: false,
+    param: 'prompt',
+    example: 'Explain HTTP 402 and L402 Lightning in 2 sentences.',
+    description:
+      'Ultra-Fast OpenAI-Compatible LLM Inference Gateway (10 Sats / $0.0094 USDC | ~500 tokens/sec | 100/100 SLA Atomic Protection). Powered by openai/gpt-oss-120b, openai/gpt-oss-20b, and qwen/qwen3.8-27b. Also available at POST /v1/chat/completions. Supports free dryRun=true pre-check.'
+  },
+  {
     name: 'freedom_captcha_solver',
     actionName: 'FREEDOM_SOLVE_CAPTCHA',
     path: '/api/v1/router/tools/captcha',

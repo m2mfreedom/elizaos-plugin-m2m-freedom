@@ -10,9 +10,9 @@ import {
   BY_NAME
 } from '../src/index.js';
 
-test('Plugin exports 8 valid ElizaOS actions and 1 context provider', async () => {
+test('Plugin exports 9 valid ElizaOS actions and 1 context provider', async () => {
   assert.equal(m2mFreedomPlugin.name, 'plugin-m2m-freedom');
-  assert.equal(m2mFreedomPlugin.actions.length, 8);
+  assert.equal(m2mFreedomPlugin.actions.length, 9);
   assert.equal(m2mFreedomPlugin.providers.length, 1);
 
   for (const action of m2mFreedomPlugin.actions) {
@@ -81,6 +81,12 @@ test('extractPayload extracts natural language parameters for all tools', () => 
   assert.equal(p2.captchaType, 'recaptcha_v2');
   assert.equal(p2.websiteURL, 'https://login.example.com');
   assert.equal(p2.websiteKey, '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI');
+
+  const p3 = extractPayload(BY_NAME.freedom_llm_inference, {
+    content: { text: 'Run LLM inference with qwen/qwen3.8-27b: Explain x402 payments' }
+  });
+  assert.equal(p3.model, 'qwen/qwen3.8-27b');
+  assert.match(p3.prompt, /Explain x402 payments/);
 });
 
 test('Live M2M Freedom Gateway dryRun & 402 quote verification', async (t) => {
@@ -94,6 +100,11 @@ test('Live M2M Freedom Gateway dryRun & 402 quote verification', async (t) => {
   const dryRes = await client.call('freedom_bitcoin_oracle_ping', { satsAmount: 100000, dryRun: true });
   assert.equal(dryRes.ok, true);
   assert.equal(dryRes.result.dryRun, true);
+
+  // 1b. Live LLM Inference dryRun=true pre-check (0 Sats, returns 200 OK)
+  const llmDryRes = await client.call('freedom_llm_inference', { prompt: 'Ping LLM', dryRun: true });
+  assert.equal(llmDryRes.ok, true);
+  assert.equal(llmDryRes.result.dryRun, true);
 
   // 2. Live unpaid call returns structured x402 + L402 402 quote
   const quoteRes = await client.call('freedom_captcha_solver', {

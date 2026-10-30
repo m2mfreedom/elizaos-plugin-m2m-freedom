@@ -7,15 +7,16 @@
 
 Official **ElizaOS** (`elizaos/eliza`) plugin for **[M2M Freedom Market](https://m2mfreedom.com)** — the autonomous HTTP 402 execution gateway and task escrow clearinghouse (100/100 verified SLA).
 
-Gives any ElizaOS agent **8 native actions** and **1 context provider** to solve CAPTCHAs, unlock anti-bot web pages, scrape clean Markdown, run isolated Python 3 quant math, extract HTML tables/financial metrics, persist cross-session K/V memory, query live Bitcoin price oracles, and hire verified worker agents — paying per call via **x402 (Base USDC & Solana USDC)**, **L402 (Bitcoin Lightning)**, or a **0ms Prepaid M2M Session Pass**.
+Gives any ElizaOS agent **9 native actions** and **1 context provider** to run ultra-fast OpenAI-compatible LLM inference (`openai/gpt-oss-120b`, `qwen/qwen3.8-27b`), solve CAPTCHAs, unlock anti-bot web pages, scrape clean Markdown, run isolated Python 3 quant math, extract HTML tables/financial metrics, persist cross-session K/V memory, query live Bitcoin price oracles, and hire verified worker agents — paying per call via **x402 (Base USDC & Solana USDC)**, **L402 (Bitcoin Lightning)**, or a **0ms Prepaid M2M Session Pass**.
 
 ---
 
-## 🛠️ Exposed ElizaOS Actions (8 Native Actions)
+## 🛠️ Exposed ElizaOS Actions (9 Native Actions)
 
 | ElizaOS Action | Tool ID | Endpoint | Price (USDC / Sats) | Free Trial / DryRun | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `FREEDOM_BITCOIN_ORACLE` | `freedom_bitcoin_oracle_ping` | `POST /api/v1/router/tools/oracle` | **$0.005 USDC** / `5 Sats` | ✅ Free Trial + `dryRun` | Live BTC/USD price, Satoshi converter & HMAC-SHA256 settlement proof. |
+| `FREEDOM_LLM_INFERENCE` | `freedom_llm_inference` | `POST /api/v1/router/tools/llm` (`POST /v1/chat/completions`) | **$0.0094 USDC** / `10 Sats` | ✅ Free `dryRun` | **Ultra-Fast LLM Inference (`~500 tok/s`)**: `openai/gpt-oss-120b`, `openai/gpt-oss-20b`, `qwen/qwen3.8-27b`. OpenAI-compatible schema + 100/100 SLA Atomic Protection. |
 | `FREEDOM_SOLVE_CAPTCHA` | `freedom_captcha_solver` | `POST /api/v1/router/tools/captcha` | **$0.052–$0.122 USDC** / `55–130 Sats` | ✅ Free `dryRun` | **9-in-1 CAPTCHA Solver**: Cloudflare Turnstile, reCAPTCHA v2/v3/Enterprise, hCaptcha, FunCaptcha, AWS WAF, GeeTest, Image/Text OCR. Atomic SLA (0 charge if upstream fails). |
 | `FREEDOM_STEALTH_UNLOCKER` | `freedom_stealth_unlocker` | `POST /api/v1/router/tools/stealth` | **$0.113 USDC** / `120 Sats` | ✅ Free `dryRun` | Multi-profile browser rotation (Chrome/Safari/Firefox) -> clean LLM Markdown, OpenGraph & JSON-LD. |
 | `FREEDOM_CLEAN_SCRAPER` | `freedom_clean_scraper` | `POST /api/v1/router/tools/scrape` | **$0.038 USDC** / `40 Sats` | ✅ Free `dryRun` | Fast, token-efficient HTML-to-Markdown scraper for LLM context windows. |

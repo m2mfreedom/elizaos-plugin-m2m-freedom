@@ -1,5 +1,5 @@
 // Official ElizaOS Plugin for M2M Freedom Market (https://m2mfreedom.com)
-// Exposes 8 autonomous x402 (Base/Solana USDC) & L402 (Bitcoin Lightning) actions + 1 context provider.
+// Exposes 9 autonomous x402 (Base/Solana USDC) & L402 (Bitcoin Lightning) actions + 1 context provider.
 
 import {
   API_BASE,
@@ -26,6 +26,11 @@ const TRIGGERS = {
     similes: ['BTC_ORACLE', 'BITCOIN_PRICE_M2M', 'L402_PING', 'X402_PING', 'SATOSHI_USD_CONVERTER'],
     words: /\b(btc|bitcoin|satoshi|sats|oracle|m2m ping|l402|x402)\b/i,
     ask: 'Check the live Bitcoin price and convert 100,000 Satoshis to USD via M2M Freedom Oracle.'
+  },
+  freedom_llm_inference: {
+    similes: ['LLM_INFERENCE_M2M', 'GROQ_CHAT_M2M', 'GPT_OSS_120B', 'QWEN_CHAT_M2M', 'FAST_LLM_COMPLETION'],
+    words: /\b(llm|inference|gpt-oss|qwen|groq|chat completion|ask model|reasoning model)\b/i,
+    ask: 'Run fast LLM inference on M2M Freedom (openai/gpt-oss-120b): Summarize why HTTP 402 enables autonomous agent economies.'
   },
   freedom_captcha_solver: {
     similes: ['SOLVE_CAPTCHA', 'BYPASS_TURNSTILE', 'SOLVE_RECAPTCHA', 'SOLVE_HCAPTCHA', 'SOLVE_FUNCAPTCHA', 'CAPTCHA_SOLVER'],
@@ -90,6 +95,24 @@ export function extractPayload(spec, message, options = {}) {
         (satsMatch ? Number(satsMatch[1].replace(/[,_]/g, '')) : 100000);
       return {
         satsAmount: Number.isFinite(Number(sats)) ? Number(sats) : 100000,
+        ...(explicit.dryRun !== undefined ? { dryRun: Boolean(explicit.dryRun) } : {})
+      };
+    }
+
+    case 'freedom_llm_inference': {
+      const modelMatch = text.match(/\b(openai\/gpt-oss-120b|openai\/gpt-oss-20b|qwen\/qwen3\.8-27b|allam-2-7b)\b/i);
+      const promptText =
+        explicit.prompt ||
+        content.prompt ||
+        text.replace(/^.*?(?:llm|inference|ask model|gpt-oss-120b)\s*[:,-]?\s*/i, '').trim() ||
+        'Explain HTTP 402 in 2 sentences.';
+      return {
+        model: explicit.model || content.model || (modelMatch ? modelMatch[1] : 'openai/gpt-oss-120b'),
+        ...(Array.isArray(explicit.messages || content.messages)
+          ? { messages: explicit.messages || content.messages }
+          : { prompt: promptText }),
+        ...(explicit.max_tokens !== undefined ? { max_tokens: Number(explicit.max_tokens) } : {}),
+        ...(explicit.temperature !== undefined ? { temperature: Number(explicit.temperature) } : {}),
         ...(explicit.dryRun !== undefined ? { dryRun: Boolean(explicit.dryRun) } : {})
       };
     }

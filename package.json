@@ -1,7 +1,7 @@
 {
   "name": "@m2mfreedom/elizaos-plugin",
-  "version": "1.0.0",
-  "description": "Official ElizaOS plugin for M2M Freedom Market (https://m2mfreedom.com) — Autonomous HTTP 402 (x402 Base/Solana USDC & L402 Bitcoin Lightning) tools for AI agents: 9-in-1 CAPTCHA Solver, Stealth Anti-Bot Web Unlocker, Clean Markdown Scraper, Isolated Python 3 Quant Sandbox, Structured Table/Financial Extractor, Persistent K/V Memory Vault, 5-Sat Bitcoin Oracle, and M2M Task Clearinghouse (100/100 SLA).",
+  "version": "1.1.0",
+  "description": "Official ElizaOS plugin for M2M Freedom Market (https://m2mfreedom.com) — Autonomous HTTP 402 (x402 Base/Solana USDC & L402 Bitcoin Lightning) tools for AI agents: Ultra-Fast LLM Inference (10 Sats / $0.0094 USDC), 9-in-1 CAPTCHA Solver, Stealth Anti-Bot Web Unlocker, Clean Markdown Scraper, Isolated Python 3 Quant Sandbox, Structured Table/Financial Extractor, Persistent K/V Memory Vault, 5-Sat Bitcoin Oracle, and M2M Task Clearinghouse (100/100 SLA).",
   "type": "module",
   "main": "src/index.js",
   "module": "src/index.js",
