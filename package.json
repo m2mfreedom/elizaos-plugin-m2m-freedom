@@ -1,0 +1,112 @@
+{
+  "name": "@m2mfreedom/elizaos-plugin",
+  "version": "1.0.0",
+  "description": "Official ElizaOS plugin for M2M Freedom Market (https://m2mfreedom.com) — Autonomous HTTP 402 (x402 Base/Solana USDC & L402 Bitcoin Lightning) tools for AI agents: 9-in-1 CAPTCHA Solver, Stealth Anti-Bot Web Unlocker, Clean Markdown Scraper, Isolated Python 3 Quant Sandbox, Structured Table/Financial Extractor, Persistent K/V Memory Vault, 5-Sat Bitcoin Oracle, and M2M Task Clearinghouse (100/100 SLA).",
+  "type": "module",
+  "main": "src/index.js",
+  "module": "src/index.js",
+  "types": "src/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js",
+      "default": "./src/index.js"
+    }
+  },
+  "files": [
+    "src",
+    "images",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "test:live": "LIVE=1 node --test test/*.test.js"
+  },
+  "keywords": [
+    "elizaos",
+    "elizaos-plugins",
+    "elizaos-plugin",
+    "eliza",
+    "ai16z",
+    "x402",
+    "l402",
+    "m2m",
+    "a2a",
+    "mcp",
+    "usdc",
+    "base",
+    "solana",
+    "lightning-network",
+    "captcha-solver",
+    "turnstile",
+    "web-scraping",
+    "anti-bot",
+    "python-sandbox",
+    "agent-memory"
+  ],
+  "author": "M2M Market — Freedom Engine <Lordbryce@coinos.io> (https://m2mfreedom.com)",
+  "license": "MIT",
+  "homepage": "https://m2mfreedom.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/m2mfreedom/elizaos-plugin-m2m-freedom.git"
+  },
+  "bugs": {
+    "url": "https://github.com/m2mfreedom/elizaos-plugin-m2m-freedom/issues"
+  },
+  "peerDependencies": {
+    "@elizaos/core": ">=0.1.0 || >=1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@elizaos/core": {
+      "optional": true
+    }
+  },
+  "agentConfig": {
+    "pluginType": "elizaos:plugin:1.0.0",
+    "pluginParameters": {
+      "M2M_FREEDOM_PASS": {
+        "type": "string",
+        "description": "Optional Prepaid M2M Session Pass token (m2m-pass-<hex>) from POST https://m2mfreedom.com/api/v1/router/topup for 0ms execution across all tools.",
+        "required": false,
+        "sensitive": true
+      },
+      "M2M_FREEDOM_X_PAYMENT": {
+        "type": "string",
+        "description": "Optional x402 payment header value (Base64 EIP-3009 payload, 'base:<0xTxHash>', or 'solana:<TxSignature>'). Or pass an x402-paying fetch wrapper.",
+        "required": false,
+        "sensitive": true
+      },
+      "COINOS_API_TOKEN": {
+        "type": "string",
+        "description": "Optional Coinos API Bearer token to automatically settle L402 Bitcoin Lightning invoices on 402 responses.",
+        "required": false,
+        "sensitive": true
+      },
+      "LNBITS_ADMIN_KEY": {
+        "type": "string",
+        "description": "Optional LNbits Admin Key (used with LNBITS_URL) to automatically pay L402 Lightning invoices on 402 responses.",
+        "required": false,
+        "sensitive": true
+      },
+      "M2M_FREEDOM_MAX_PRICE_USD": {
+        "type": "string",
+        "description": "Maximum allowed per-call spend cap in USD (default: 0.25).",
+        "required": false
+      },
+      "M2M_FREEDOM_AUTO_FREE_TRIAL": {
+        "type": "string",
+        "description": "Set 'true' to automatically use the 1-call Free Trial pass on eligible tools (Oracle, Python Sandbox, Memory Vault) when no payment credential is configured.",
+        "required": false
+      }
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
