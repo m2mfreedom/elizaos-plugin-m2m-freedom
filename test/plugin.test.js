@@ -10,9 +10,9 @@ import {
   BY_NAME
 } from '../src/index.js';
 
-test('Plugin exports 9 valid ElizaOS actions and 1 context provider', async () => {
+test('Plugin exports 10 valid ElizaOS actions and 1 context provider', async () => {
   assert.equal(m2mFreedomPlugin.name, 'plugin-m2m-freedom');
-  assert.equal(m2mFreedomPlugin.actions.length, 9);
+  assert.equal(m2mFreedomPlugin.actions.length, 10);
   assert.equal(m2mFreedomPlugin.providers.length, 1);
 
   for (const action of m2mFreedomPlugin.actions) {
@@ -87,6 +87,12 @@ test('extractPayload extracts natural language parameters for all tools', () => 
   });
   assert.equal(p3.model, 'qwen/qwen3.8-27b');
   assert.match(p3.prompt, /Explain x402 payments/);
+
+  const p4 = extractPayload(BY_NAME.freedom_semantic_embeddings, {
+    content: { text: 'Generate 512-dimensional embeddings for: Autonomous agent RAG memory' }
+  });
+  assert.equal(p4.dimensions, 512);
+  assert.match(p4.input, /Autonomous agent RAG memory/);
 });
 
 test('Live M2M Freedom Gateway dryRun & 402 quote verification', async (t) => {

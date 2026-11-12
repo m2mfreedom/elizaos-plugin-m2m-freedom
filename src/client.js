@@ -26,11 +26,24 @@ export const TOOLS = [
     method: 'POST',
     priceSats: 10,
     priceUsd: 0.0094,
-    freeTrialEligible: false,
+    freeTrialEligible: true,
     param: 'prompt',
     example: 'Explain HTTP 402 and L402 Lightning in 2 sentences.',
     description:
-      'Ultra-Fast OpenAI-Compatible LLM Inference Gateway (10 Sats / $0.0094 USDC | ~500 tokens/sec | 100/100 SLA Atomic Protection). Powered by openai/gpt-oss-120b, openai/gpt-oss-20b, and qwen/qwen3.8-27b. Also available at POST /v1/chat/completions. Supports free dryRun=true pre-check.'
+      'Ultra-Fast OpenAI-Compatible LLM Inference Gateway (10 Sats / $0.0094 USDC | ~500 tokens/sec | 100/100 SLA Atomic Protection). Powered by openai/gpt-oss-120b, openai/gpt-oss-20b, and qwen/qwen3.8-27b. Also available at POST /v1/chat/completions. Supports 2 Free Trial calls/IP or free dryRun=true pre-check.'
+  },
+  {
+    name: 'freedom_semantic_embeddings',
+    actionName: 'FREEDOM_SEMANTIC_EMBEDDINGS',
+    path: '/api/v1/router/tools/embeddings',
+    method: 'POST',
+    priceSats: 5,
+    priceUsd: 0.0047,
+    freeTrialEligible: true,
+    param: 'input',
+    example: 'Autonomous HTTP 402 M2M agent payments and RAG semantic search',
+    description:
+      '5-Satoshi ($0.0047 USDC) Deterministic Semantic Vector Embeddings Engine (128-1024 dims, L2-normalized, batch up to 32 texts, <15ms | 100/100 SLA). Also available at OpenAI-compatible POST /v1/embeddings. Supports 2 Free Trial calls/IP or free dryRun=true pre-check.'
   },
   {
     name: 'freedom_captcha_solver',
@@ -43,7 +56,7 @@ export const TOOLS = [
     param: 'websiteURL',
     example: 'https://example.com/login',
     description:
-      '9-in-1 High-Speed CAPTCHA Solver for Autonomous Agents (55-130 Sats / $0.052-$0.122 USDC | 100/100 SLA Atomic Protection — zero charge if upstream fails). Solves Cloudflare Turnstile, Google reCAPTCHA v2/v3/Enterprise, hCaptcha, Arkose FunCaptcha, AWS WAF, GeeTest v3/v4, and Image/Text OCR.'
+      '12-in-1 High-Speed CAPTCHA Solver for Autonomous Agents (55-140 Sats / $0.052-$0.132 USDC | 100/100 SLA Atomic Protection — zero charge if upstream fails). Solves Cloudflare Turnstile, Google reCAPTCHA v2/v3/Enterprise, hCaptcha, DataDome, Arkose FunCaptcha, AWS WAF, GeeTest v3/v4, Audio Speech-to-Text, Rotate/Slider, and Image/Text OCR.'
   },
   {
     name: 'freedom_stealth_unlocker',
@@ -302,7 +315,7 @@ export function createClient({
 
       const headers = {
         Accept: 'application/json',
-        'User-Agent': 'ElizaOS-M2MFreedom-Plugin/1.0.0'
+        'User-Agent': 'ElizaOS-M2MFreedom-Plugin/1.2.0'
       };
       if (method === 'POST') {
         headers['Content-Type'] = 'application/json';

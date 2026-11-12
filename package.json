@@ -1,7 +1,7 @@
 {
   "name": "@m2mfreedom/elizaos-plugin",
-  "version": "1.1.0",
-  "description": "Official ElizaOS plugin for M2M Freedom Market (https://m2mfreedom.com) — Autonomous HTTP 402 (x402 Base/Solana USDC & L402 Bitcoin Lightning) tools for AI agents: Ultra-Fast LLM Inference (10 Sats / $0.0094 USDC), 9-in-1 CAPTCHA Solver, Stealth Anti-Bot Web Unlocker, Clean Markdown Scraper, Isolated Python 3 Quant Sandbox, Structured Table/Financial Extractor, Persistent K/V Memory Vault, 5-Sat Bitcoin Oracle, and M2M Task Clearinghouse (100/100 SLA).",
+  "version": "1.2.0",
+  "description": "Official ElizaOS plugin for M2M Freedom Market (https://m2mfreedom.com) — Autonomous HTTP 402 (x402 Base/Solana USDC & L402 Bitcoin Lightning) tools for AI agents: Ultra-Fast LLM Inference (10 Sats / $0.0094 USDC), 5-Sat Semantic Vector Embeddings, 12-in-1 CAPTCHA Solver, Stealth Anti-Bot Web Unlocker, Clean Markdown Scraper, Isolated Python 3 Quant Sandbox, Structured Table/Financial Extractor, Persistent K/V Memory Vault, 5-Sat Bitcoin Oracle, and M2M Task Clearinghouse (100/100 SLA).",
   "type": "module",
   "main": "src/index.js",
   "module": "src/index.js",
@@ -98,7 +98,7 @@
       },
       "M2M_FREEDOM_AUTO_FREE_TRIAL": {
         "type": "string",
-        "description": "Set 'true' to automatically use the 1-call Free Trial pass on eligible tools (Oracle, Python Sandbox, Memory Vault) when no payment credential is configured.",
+        "description": "Set 'true' to automatically use the 2-call Free Trial pass on eligible tools (LLM Inference, Vector Embeddings, Oracle, Python Sandbox, Memory Vault) when no payment credential is configured.",
         "required": false
       }
     }

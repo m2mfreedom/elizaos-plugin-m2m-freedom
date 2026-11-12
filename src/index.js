@@ -32,9 +32,14 @@ const TRIGGERS = {
     words: /\b(llm|inference|gpt-oss|qwen|groq|chat completion|ask model|reasoning model)\b/i,
     ask: 'Run fast LLM inference on M2M Freedom (openai/gpt-oss-120b): Summarize why HTTP 402 enables autonomous agent economies.'
   },
+  freedom_semantic_embeddings: {
+    similes: ['VECTOR_EMBEDDINGS_M2M', 'SEMANTIC_EMBEDDINGS', 'OPENAI_EMBEDDINGS_M2M', 'RAG_EMBED_TEXT'],
+    words: /\b(embedding|embeddings|vectorize|semantic vector|rag vector)\b/i,
+    ask: 'Generate 384-dimensional semantic vector embeddings for: Autonomous HTTP 402 M2M agent payments.'
+  },
   freedom_captcha_solver: {
-    similes: ['SOLVE_CAPTCHA', 'BYPASS_TURNSTILE', 'SOLVE_RECAPTCHA', 'SOLVE_HCAPTCHA', 'SOLVE_FUNCAPTCHA', 'CAPTCHA_SOLVER'],
-    words: /\b(captcha|turnstile|recaptcha|hcaptcha|funcaptcha|geetest|aws waf)\b/i,
+    similes: ['SOLVE_CAPTCHA', 'BYPASS_TURNSTILE', 'SOLVE_RECAPTCHA', 'SOLVE_HCAPTCHA', 'SOLVE_FUNCAPTCHA', 'SOLVE_DATADOME', 'CAPTCHA_SOLVER'],
+    words: /\b(captcha|turnstile|recaptcha|hcaptcha|funcaptcha|geetest|aws waf|datadome)\b/i,
     ask: 'Solve the Cloudflare Turnstile CAPTCHA on https://example.com/login with sitekey 0x4AAAAAAAB.'
   },
   freedom_stealth_unlocker: {
@@ -117,9 +122,23 @@ export function extractPayload(spec, message, options = {}) {
       };
     }
 
+    case 'freedom_semantic_embeddings': {
+      const dimMatch = text.match(/\b(128|256|384|512|768|1024)(?:\s*-\s*|\s+)(?:dim|dims|dimension|dimensions|dimensional)\b/i);
+      const inputText =
+        explicit.input ??
+        content.input ??
+        (text.replace(/^.*?(?:embeddings?|vectorize)\s*(?:for)?\s*[:,-]?\s*/i, '').trim() ||
+          'Autonomous HTTP 402 M2M agent payments');
+      return {
+        input: inputText,
+        dimensions: Number(explicit.dimensions ?? content.dimensions ?? (dimMatch ? dimMatch[1] : 384)),
+        ...(explicit.dryRun !== undefined ? { dryRun: Boolean(explicit.dryRun) } : {})
+      };
+    }
+
     case 'freedom_captcha_solver': {
       const typeMatch = text.match(
-        /\b(turnstile|recaptcha_v2|recaptcha_v3|recaptcha_enterprise|hcaptcha|funcaptcha|amazon_waf|geetest|normal)\b/i
+        /\b(turnstile|recaptcha_v2|recaptcha_v3|recaptcha_enterprise|hcaptcha|funcaptcha|amazon_waf|geetest|datadome|audio|rotate|normal)\b/i
       );
       const keyMatch = text.match(/\b(?:sitekey|websiteKey|key)\s*[:=]?\s*([0-9a-zA-Z_-]{10,80})\b/i);
       return {
@@ -297,7 +316,7 @@ export function createM2MFreedomPlugin(opts = {}) {
   return {
     name: 'plugin-m2m-freedom',
     description:
-      'Official M2M Freedom Market (https://m2mfreedom.com) plugin for ElizaOS: 9-in-1 CAPTCHA Solver, Stealth Anti-Bot Web Unlocker, Clean Markdown Scraper, Isolated Python 3 Quant Sandbox, Structured HTML/Financial Extractor, Persistent K/V Memory Vault, 5-Sat Bitcoin Oracle, and M2M Task Clearinghouse via x402 (Base/Solana USDC) and L402 Lightning.',
+      'Official M2M Freedom Market (https://m2mfreedom.com) plugin for ElizaOS: Ultra-Fast LLM Inference, 5-Sat Semantic Vector Embeddings, 12-in-1 CAPTCHA Solver, Stealth Anti-Bot Web Unlocker, Clean Markdown Scraper, Isolated Python 3 Quant Sandbox, Structured HTML/Financial Extractor, Persistent K/V Memory Vault, 5-Sat Bitcoin Oracle, and M2M Task Clearinghouse via x402 (Base/Solana USDC) and L402 Lightning.',
     actions: selectedTools.map((s) => buildAction(s, opts)),
     providers: [m2mFreedomProvider],
     evaluators: [],
